@@ -104,7 +104,7 @@ pub async fn fetch_userinfo(
         .ok_or(UserInfoError::MissingResponseContentType)?
         .to_str()?;
 
-    if content_type != expected_content_type {
+    if !content_type.starts_with(expected_content_type) {
         return Err(UserInfoError::InvalidResponseContentType {
             expected: expected_content_type.to_owned(),
             got: content_type.to_owned(),
